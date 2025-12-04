@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Gestión de Aulas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Sistema de Gestión de Aulas</div>
+        <div class="navbar-menu">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="recursos.html">Recursos</a>
+            <a href="reservas.html">Reservas</a>
+            <span id="userNameDisplay" class="user-name"></span>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Dashboard</h1>
+            <p>Resumen general del sistema</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card blue">
+                <div class="stat-icon">🏫</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalAulas">0</div>
+                    <div class="stat-label">Total Aulas</div>
+                </div>
+            </div>
+
+            <div class="stat-card green">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="aulasLibres">0</div>
+                    <div class="stat-label">Aulas Libres</div>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-icon">🔒</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="aulasOcupadas">0</div>
+                    <div class="stat-label">Aulas Ocupadas</div>
+                </div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="stat-icon">📦</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalRecursos">0</div>
+                    <div class="stat-label">Total Recursos</div>
+                </div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="recursosDanados">0</div>
+                    <div class="stat-label">Recursos Dañados</div>
+                </div>
+            </div>
+
+            <div class="stat-card teal">
+                <div class="stat-icon">📅</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="reservasActivas">0</div>
+                    <div class="stat-label">Reservas Activas</div>
+                </div>
+            </div>
+
+            <div class="stat-card indigo">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="reservasHoy">0</div>
+                    <div class="stat-label">Reservas Hoy</div>
+                </div>
+            </div>
+
+            <div class="stat-card pink">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalUsuarios">0</div>
+                    <div class="stat-label">Total Usuarios</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="section-header">
+            <h2>Reservas Recientes</h2>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Módulo</th>
+                        <th>Instructor</th>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="recentReservationsTable">
+                    <tr>
+                        <td colspan="6" class="text-center">Cargando...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="adminSection" style="display: none;">
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h2>Gestión de Usuarios</h2>
+                <button class="btn-primary" onclick="showUserModal()">Nuevo Usuario</button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <tr>
+                            <td colspan="5" class="text-center">Cargando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section-divider"></div>
+            
+            <div class="section-header">
+                <h2>Bitácora de Acciones</h2>
+            </div>
+
+            <div class="filter-section">
+                <input type="date" id="logDateFrom" placeholder="Desde">
+                <input type="date" id="logDateTo" placeholder="Hasta">
+                <input type="text" id="logAction" placeholder="Buscar acción...">
+                <button class="btn-secondary" onclick="loadLogs()">Buscar</button>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                            <th>Tabla</th>
+                            <th>Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTable">
+                        <tr>
+                            <td colspan="5" class="text-center">Cargando...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userModalTitle">Nuevo Usuario</h2>
+                <span class="modal-close" onclick="closeUserModal()">&times;</span>
+            </div>
+            <form id="userForm">
+                <input type="hidden" id="userId">
+                <div class="form-group">
+                    <label for="userName">Nombre</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Contraseña</label>
+                    <input type="password" id="userPassword">
+                    <small>Dejar en blanco para no cambiar (solo edición)</small>
+                </div>
+                <div class="form-group">
+                    <label for="userRole">Rol</label>
+                    <select id="userRole" required>
+                        <option value="USUARIO">Usuario (Instructor)</option>
+                        <option value="ADMIN">Administrador</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">Teléfono</label>
+                    <input type="tel" id="userPhone">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeUserModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas - Sistema de Gestión de Aulas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Sistema de Gestión de Aulas</div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="aulas.html" class="active">Aulas</a>
+            <a href="recursos.html">Recursos</a>
+            <a href="reservas.html">Reservas</a>
+            <span id="userNameDisplay" class="user-name"></span>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Gestión de Aulas</h1>
+            <p>Visualiza el estado de todas las aulas</p>
+        </div>
+
+        <div class="rooms-grid" id="roomsGrid">
+            <div class="text-center">Cargando aulas...</div>
+        </div>
+    </div>
+
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Código QR del Aula</h2>
+                <span class="modal-close" onclick="closeQRModal()">&times;</span>
+            </div>
+            <div class="qr-container">
+                <img id="qrImage" src="/placeholder.svg" alt="Código QR">
+                <p id="qrAulaName"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeQRModal()">Cerrar</button>
+                <button class="btn-primary" onclick="downloadQR()">Descargar QR</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/aulas.js"></script>
+</body>
+</html>

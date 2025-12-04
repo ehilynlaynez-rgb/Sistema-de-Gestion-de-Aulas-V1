@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos - Sistema de Gestión de Aulas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Sistema de Gestión de Aulas</div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="recursos.html" class="active">Recursos</a>
+            <a href="reservas.html">Reservas</a>
+            <span id="userNameDisplay" class="user-name"></span>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Gestión de Recursos</h1>
+            <p>Administra los recursos de cada aula</p>
+        </div>
+
+        <div class="filter-section">
+            <select id="filterAula">
+                <option value="">Todas las aulas</option>
+            </select>
+            <select id="filterTipo">
+                <option value="">Todos los tipos</option>
+            </select>
+            <select id="filterEstado">
+                <option value="">Todos los estados</option>
+                <option value="Activo">Activo</option>
+                <option value="Dañado">Dañado</option>
+                <option value="Reparado">Reparado</option>
+            </select>
+            <button class="btn-primary" onclick="loadResources()">Buscar</button>
+        </div>
+
+        <div id="adminResourceButtons" style="display: none; margin: 20px 0;">
+            <button class="btn-primary" onclick="showResourceModal()">Nuevo Recurso</button>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Tipo</th>
+                        <th>Código</th>
+                        <th>Estado</th>
+                        <th id="adminActionsHeader" style="display: none;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="resourcesTable">
+                    <tr>
+                        <td colspan="5" class="text-center">Use los filtros para buscar recursos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nuevo Recurso</h2>
+                <span class="modal-close" onclick="closeResourceModal()">&times;</span>
+            </div>
+            <form id="resourceForm">
+                <div class="form-group">
+                    <label for="resourceAula">Aula</label>
+                    <select id="resourceAula" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceTipo">Tipo</label>
+                    <input type="text" id="resourceTipo" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceCodigo">Código</label>
+                    <input type="text" id="resourceCodigo" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceEstado">Estado</label>
+                    <select id="resourceEstado" required>
+                        <option value="Activo">Activo</option>
+                        <option value="Dañado">Dañado</option>
+                        <option value="Reparado">Reparado</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeResourceModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/recursos.js"></script>
+</body>
+</html>

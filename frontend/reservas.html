@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - Sistema de Gestión de Aulas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">Sistema de Gestión de Aulas</div>
+        <div class="navbar-menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="aulas.html">Aulas</a>
+            <a href="recursos.html">Recursos</a>
+            <a href="reservas.html" class="active">Reservas</a>
+            <span id="userNameDisplay" class="user-name"></span>
+            <button id="logoutBtn" class="btn-logout">Cerrar Sesión</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Gestión de Reservas</h1>
+            <button class="btn-primary" onclick="showReservationModal()">Nueva Reserva</button>
+        </div>
+
+        <div class="filter-section">
+            <input type="date" id="filterDateFrom">
+            <input type="date" id="filterDateTo">
+            <select id="filterAula">
+                <option value="">Todas las aulas</option>
+            </select>
+            <select id="filterEstado">
+                <option value="">Todos los estados</option>
+                <option value="Activa">Activa</option>
+                <option value="Completada">Completada</option>
+                <option value="Cancelada">Cancelada</option>
+            </select>
+            <button class="btn-primary" onclick="loadReservations()">Buscar</button>
+            <button class="btn-secondary" onclick="exportHistorial()">Descargar Historial</button>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Módulo</th>
+                        <th>Instructor</th>
+                        <th>Fecha</th>
+                        <th>Horario</th>
+                        <th>Grupo WhatsApp</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="reservationsTable">
+                    <tr>
+                        <td colspan="8" class="text-center">Cargando reservas...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="reservationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nueva Reserva</h2>
+                <span class="modal-close" onclick="closeReservationModal()">&times;</span>
+            </div>
+            <form id="reservationForm">
+                <div class="form-group">
+                    <label for="reservationAula">Aula</label>
+                    <select id="reservationAula" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="reservationDate">Fecha</label>
+                    <input type="date" id="reservationDate" required>
+                    <small>Solo se permiten reservas hasta 7 días adelante</small>
+                </div>
+                <div class="form-group">
+                    <label for="reservationStartTime">Hora de Inicio</label>
+                    <input type="time" id="reservationStartTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="reservationEndTime">Hora de Fin</label>
+                    <input type="time" id="reservationEndTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="reservationWhatsApp">Grupo de WhatsApp (opcional)</label>
+                    <input type="text" id="reservationWhatsApp" placeholder="+521234567890">
+                    <small>Formato: +521234567890</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeReservationModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary">Reservar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/reservas.js"></script>
+</body>
+</html>
